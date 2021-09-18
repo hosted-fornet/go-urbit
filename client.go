@@ -488,23 +488,22 @@ func (res *Result) Wait() error {
 
 // Poke sends a "poke" request to the ship Client is connected to.
 func (c *Client) Poke(app string, data json.RawMessage) Result {
-	req := &Request{
-		Action: ActionPoke,
-		Ship:   c.name,
-		App:    app,
-		Mark:   "json",
-		Data:   data,
-	}
-	return c.Do(req)
+	return c.PokeShip(c.name, app, data)
 }
 
 // PokeShip sends a "poke" request to a given ship.
 func (c *Client) PokeShip(ship, app string, data json.RawMessage) Result {
+	return c.PokeShipMark(ship, app, "json", data)
+}
+
+// PokeShipMark sends a "poke" request
+// to a given ship with a given mark.
+func (c *Client) PokeShipMark(ship, app, mark string, data json.RawMessage) Result {
 	req := &Request{
 		Action: ActionPoke,
 		Ship:   ship,
 		App:    app,
-		Mark:   "json",
+		Mark:   mark,
 		Data:   data,
 	}
 	return c.Do(req)
