@@ -115,7 +115,7 @@ func Dial(addr, code string, opts *DialOptions) (*Client, error) {
 
 	// TODO: Get this in a non-JS format so we don't need to tear
 	// it apart.
-	snippet, err := c.Get("/~landscape/js/session.js", "")
+	snippet, err := c.Get("/session.js", "")
 	if err != nil {
 		return nil, fmt.Errorf("couldn't find ship name: %w", err)
 	}
